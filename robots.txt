@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# No crawlable parameters or private areas exist on this site.
+Sitemap: https://www.vitacalc.in/sitemap.xml

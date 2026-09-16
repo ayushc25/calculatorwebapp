@@ -1,0 +1,21 @@
+{
+  "name": "VitaCalc — Health Calculators",
+  "short_name": "VitaCalc",
+  "description": "Health calculators that respect your privacy",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8F2",
+  "theme_color": "#F2683C",
+  "icons": [
+    {
+      "src": "/assets/img/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
