@@ -16,6 +16,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from content import CALCULATORS, CALC_BY_SLUG, DIRECTORY_ORDER, TAG_LABELS
+from guide import GUIDES
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -180,7 +181,8 @@ def footer_html(depth):
 
 
 def page(path, depth, title, description, body, current='', canonical='',
-         jsonld=None, og_image='assets/img/og-default.png', noindex=False):
+         jsonld=None, og_image='assets/img/og-default.png', noindex=False,
+         extra_js=()):
     """Writes one HTML file and returns its canonical URL."""
     canonical_url = BASE_URL + '/' + canonical
     ld = ''
@@ -231,6 +233,7 @@ def page(path, depth, title, description, body, current='', canonical='',
         '<script src="%(root)sassets/js/engine.js"></script>\n'
         '<script src="%(root)sassets/js/data.js"></script>\n'
         '<script src="%(root)sassets/js/app.js"></script>\n'
+        '%(extra_js)s'
         '</body>\n</html>\n'
     ) % {
         'title': title,
@@ -242,6 +245,9 @@ def page(path, depth, title, description, body, current='', canonical='',
         'base': BASE_URL,
         'ogimg': og_image,
         'root': rel(depth),
+        'extra_js': ''.join(
+            '<script src="%sassets/js/%s"></script>\n' % (rel(depth), f)
+            for f in extra_js),
         'ld': ld,
         'header': header_html(depth, current),
         'body': body,
@@ -516,6 +522,8 @@ def build_calculator(c):
     depth = 2
     slug = c['slug']
     others = [s for s in DIRECTORY_ORDER if s != slug][:5]
+    g = GUIDES[slug]
+    faqs = list(c['faqs']) + g['faqs']
 
     side = (
         '<aside class="calc-layout__side">'
@@ -559,9 +567,17 @@ def build_calculator(c):
         '%(method)s'
         '</article>'
 
+        '<article class="panel prose" id="guide">'
+        '%(guide)s'
+        '</article>'
+
         '<section class="panel">'
         '<h2>Frequently asked questions</h2>'
         '%(faq)s'
+        '</section>'
+
+        '<section class="panel prose" id="notes">'
+        '%(closing)s'
         '</section>'
 
         '<section class="panel">'
@@ -577,7 +593,9 @@ def build_calculator(c):
         'form': c['form'],
         'method_title': c['method_title'],
         'method': c['method'],
-        'faq': faq_html(c['faqs']),
+        'faq': faq_html(faqs),
+        'guide': g['article'],
+        'closing': g['closing'],
         'related': ''.join(calc_card(s, depth) for s in others[:3]),
         'side': side,
     }
@@ -592,6 +610,8 @@ def build_calculator(c):
         'operatingSystem': 'Any (web browser)',
         'browserRequirements': 'Requires JavaScript',
         'isAccessibleForFree': True,
+        'inLanguage': 'en',
+        'dateModified': BUILD_DATE,
         'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR'},
         'publisher': {'@type': 'Organization', 'name': ORG, 'url': BASE_URL + '/'},
     }
@@ -604,8 +624,9 @@ def build_calculator(c):
          title='%s | %s' % (c['meta_title'], BRAND),
          description=c['meta_desc'],
          body=body, current='calculators', canonical='calculators/%s/' % slug,
-         jsonld=[app, faq_jsonld(c['faqs']), crumbs],
-         og_image='assets/img/og-%s.png' % slug)
+         jsonld=[app, faq_jsonld(faqs), crumbs],
+         og_image='assets/img/og-%s.png' % slug,
+         extra_js=('guide.js',))
 
     # data-calc drives which engine module app.js runs
     full = os.path.join(ROOT, path)

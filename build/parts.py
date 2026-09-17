@@ -9,6 +9,8 @@ Conventions used by assets/js/app.js:
     validation is done in JS so messages stay inline and accessible
 """
 
+import re
+
 
 def err(field_id):
     return '<p class="error-msg" id="%s-error" role="alert"></p>' % field_id
@@ -281,13 +283,25 @@ def worked(text, tag='Example'):
             '<p>%s</p></div>' % (tag, text))
 
 
+def strip_tags(text):
+    """Plain text for an attribute value: no markup, no double quotes."""
+    return re.sub(r'<[^>]+>', '', text).replace('"', '&quot;')
+
+
 def ref_table(caption, head, rows):
-    """A small reference table for values that are data, not a formula."""
+    """A small reference table for values that are data, not a formula.
+
+    The scroll container is a labelled, focusable region: on a narrow screen
+    these tables scroll sideways, and WCAG 2.1 requires that a scrollable
+    area be reachable and operable from the keyboard, not only by touch.
+    """
     return (
-        '<div class="table-scroll"><table class="data">'
+        '<div class="table-scroll" role="region" tabindex="0" aria-label="%s">'
+        '<table class="data">'
         '<caption>%s</caption><thead><tr>%s</tr></thead><tbody>%s</tbody>'
         '</table></div>'
     ) % (
+        strip_tags(caption),
         caption,
         ''.join('<th scope="col"%s>%s</th>' % (' class="num"' if n else '', h)
                 for h, n in head),

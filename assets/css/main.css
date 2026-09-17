@@ -462,7 +462,21 @@ select {
 .stat dd small { font-size: .62em; font-weight: 700; color: var(--muted); margin-left: 3px; }
 
 /* Data table */
-.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 8px; }
+/* Reference tables scroll sideways on a phone. The paired gradients are the
+   classic scrolling-shadow trick: the two solid "cover" layers scroll with
+   the content (background-attachment: local) and slide over the two fixed
+   shadow layers, so a shadow only shows on a side that has more to reveal.
+   No JavaScript, and it disappears by itself at either end. */
+.table-scroll {
+  overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 8px;
+  background:
+    linear-gradient(to right, var(--surface) 40%, rgba(255,255,255,0)) left center / 28px 100% no-repeat,
+    linear-gradient(to left,  var(--surface) 40%, rgba(255,255,255,0)) right center / 28px 100% no-repeat,
+    radial-gradient(farthest-side at 0 50%, rgba(74,40,22,.16), rgba(74,40,22,0)) left center / 14px 100% no-repeat,
+    radial-gradient(farthest-side at 100% 50%, rgba(74,40,22,.16), rgba(74,40,22,0)) right center / 14px 100% no-repeat;
+  background-attachment: local, local, scroll, scroll;
+}
+.table-scroll:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; border-radius: var(--r-sm); }
 table.data { width: 100%; border-collapse: collapse; font-size: .93rem; min-width: 380px; }
 table.data caption { text-align: left; font-weight: 700; padding-bottom: 10px; color: var(--ink); }
 table.data th, table.data td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); }
@@ -514,6 +528,41 @@ table.data tr.is-active td { font-weight: 700; color: var(--coral-700); }
   background: var(--bg-alt); border: 1px solid var(--line); border-radius: 6px;
   padding: 2px 7px; font-size: .9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
+/* ---------- Collapsible guide sections ----------
+   The long-form article below each calculator folds into <details> blocks so
+   the calculator stays the focus. Content is present in the DOM either way;
+   only the default visibility changes. Styled to match details.faq-item. */
+details.guide-section {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r); padding: 0 20px; margin-bottom: 10px;
+}
+details.guide-section[open] { border-color: var(--coral-100); box-shadow: var(--shadow-1); }
+details.guide-section > summary {
+  cursor: pointer; list-style: none; position: relative; padding: 15px 34px 15px 0;
+}
+details.guide-section > summary::-webkit-details-marker { display: none; }
+details.guide-section > summary::after {
+  content: "+"; position: absolute; right: 2px; top: 50%; transform: translateY(-50%);
+  font-size: 1.35rem; font-weight: 700; line-height: 1; color: var(--coral-700);
+}
+details.guide-section[open] > summary::after { content: "\2212"; }
+details.guide-section > summary:hover h2 { color: var(--coral-700); }
+details.guide-section > summary:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; border-radius: 6px; }
+/* The heading stays an h2 for document structure; these rules only stop it
+   behaving like a block heading inside the summary row. */
+.prose details.guide-section > summary h2 {
+  display: inline; margin: 0; font-size: 1.08rem; line-height: 1.4;
+}
+.guide-section__body { padding-bottom: 20px; }
+/* A section heading linked from a search result or an in-page anchor must
+   clear the sticky header rather than hide underneath it. */
+.prose .guide-section > summary h2,
+.prose > h2[id], .prose > h3[id] { scroll-margin-top: 92px; }
+.guide-section { scroll-margin-top: 92px; }
+.prose .guide-section__body > :first-child { margin-top: 0; }
+.prose .guide-section__body > :last-child { margin-bottom: 0; }
+.prose .guide-section__body h3:first-child { margin-top: 0; }
+
 /* ---------- Method display ----------
    Formulas and procedures are set in the body typeface, not as code blocks.
    .eq    — a named equation, one or more rows
@@ -575,7 +624,13 @@ table.data tr.is-active td { font-weight: 700; color: var(--coral-700); }
   color: var(--coral-700); background: var(--surface); border: 1px solid var(--coral-100);
   border-radius: 999px; padding: 3px 10px; margin-top: 1px;
 }
-.worked p { margin: 0; }
+/* min-width:0 lets the paragraph shrink inside the flex row; without it a
+   longer tag pill pushes the text past the viewport on a small phone. */
+.worked p { margin: 0; min-width: 0; }
+@media (max-width: 480px) {
+  .worked { flex-direction: column; gap: 9px; }
+  .worked__tag { align-self: flex-start; }
+}
 
 /* ---------- FAQ ---------- */
 .faq { display: grid; gap: 10px; }
