@@ -334,8 +334,23 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
     gap: 30px 30px;
   }
   .calc-layout__form { grid-column: 1; grid-row: 1; }
-  .calc-layout__side { grid-column: 2; grid-row: 1 / span 2; }
-  .calc-layout__content { grid-column: 1; grid-row: 2; }
+  .calc-layout__side { grid-column: 2; grid-row: 1; }
+  /* The article runs the full width under the calculator rather than staying
+     in the left column. Penned into column 1 it left the right-hand column
+     empty for the whole length of the page -- a tall band of dead space,
+     since the sidebar cannot stretch to fill it (a shown result makes the
+     aside itself very tall, so it cannot be made sticky either). Centred at a
+     comfortable reading measure it reads as an article and wastes nothing.
+     The cap is in px, not ch: `ch` resolves against whichever font happens to
+     be active, so with a web font loading async the column width changed
+     depending on when it settled. 780px holds the text to ~62 characters. */
+  .calc-layout__content {
+    grid-column: 1 / -1; grid-row: 2;
+    width: 100%; max-width: 780px; margin-inline: auto;
+  }
+  /* The column now sets the reading measure, so the panels inside fill it
+     instead of capping again and leaving a strip of empty card. */
+  .calc-layout__content .prose { max-width: none; }
 }
 /* Clear the sticky header when a result is scrolled into view */
 .calc-layout__side, .result, .side-card { scroll-margin-top: 88px; }

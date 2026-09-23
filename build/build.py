@@ -16,7 +16,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from content import CALCULATORS, CALC_BY_SLUG, DIRECTORY_ORDER, TAG_LABELS
-from guide import GUIDES
+from guide import GUIDES, fold
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -562,11 +562,6 @@ def build_calculator(c):
         '%(side)s'
 
         '<div class="calc-layout__content">'
-        '<article class="panel prose">'
-        '<h2>%(method_title)s</h2>'
-        '%(method)s'
-        '</article>'
-
         '<article class="panel prose" id="guide">'
         '%(guide)s'
         '</article>'
@@ -579,11 +574,6 @@ def build_calculator(c):
         '<section class="panel prose" id="notes">'
         '%(closing)s'
         '</section>'
-
-        '<section class="panel">'
-        '<h2>Related calculators</h2>'
-        '<div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr))">%(related)s</div>'
-        '</section>'
         '</div>'
         '</div></div>'
     ) % {
@@ -591,12 +581,13 @@ def build_calculator(c):
         'intro': c['intro'],
         'form_title': c['form_title'],
         'form': c['form'],
-        'method_title': c['method_title'],
-        'method': c['method'],
         'faq': faq_html(faqs),
-        'guide': g['article'],
+        # Intro, then the calculator's own methodology, then the topic
+        # sections -- every one of them a closed fold, all in one card.
+        'guide': (g['intro']
+                  + fold('how-it-is-calculated', c['method_title'], c['method'])
+                  + g['folds']),
         'closing': g['closing'],
-        'related': ''.join(calc_card(s, depth) for s in others[:3]),
         'side': side,
     }
 

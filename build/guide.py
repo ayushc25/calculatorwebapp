@@ -59,14 +59,13 @@ def guide(intro, sections, limits, seek_title, seek, disclaimer, faqs=()):
     disclaimer HTML for the closing callout
     faqs       extra (question, answer) pairs appended to the page FAQ
 
-    Sections render as collapsed <details> blocks with the first one open,
-    which keeps the page short without hiding anything from a crawler. The
-    collapsed headings double as the contents list, so no separate table of
-    contents is needed.
+    Every section renders as a closed <details> block, so the page opens as a
+    short list of headings and the visitor expands only what they want. The
+    text stays in the DOM either way, so nothing is hidden from a crawler, and
+    the collapsed headings double as the contents list.
     """
-    article = intro + ''.join(
-        fold(sid, head, body, open_=(i == 0))
-        for i, (sid, head, body) in enumerate(sections))
+    folds = ''.join(fold(sid, head, body) for sid, head, body in sections)
+    article = intro + folds
 
     closing = fold('limitations', 'Important limitations', limits)
     if seek:
@@ -75,7 +74,11 @@ def guide(intro, sections, limits, seek_title, seek, disclaimer, faqs=()):
     # a visitor has to go looking for.
     closing += '<h2 id="disclaimer">Disclaimer</h2>' + callout(disclaimer, warn=True)
 
-    return {'article': article, 'closing': closing, 'faqs': list(faqs)}
+    # `intro` and `folds` are exposed separately so build.py can slot the
+    # calculator's own methodology fold between them, keeping every fold on
+    # the page inside a single card instead of nesting one card in another.
+    return {'article': article, 'intro': intro, 'folds': folds,
+            'closing': closing, 'faqs': list(faqs)}
 
 
 from guide_body import GUIDES_BODY        # noqa: E402

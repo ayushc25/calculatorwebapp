@@ -144,7 +144,7 @@ GUIDES_WOMENS['period'] = guide(
 GUIDES_WOMENS['pregnancy'] = guide(
     intro='''
 <p>A due date is one of the first pieces of information anyone receives in pregnancy, and it is almost always treated as more precise than it is. It is an estimate: the centre of a range of likely birth dates, calculated from a convention that starts counting about two weeks before conception.</p>
-<p>This guide explains what pregnancy term means, how the different dating methods compare, what the standard timeline looks like, and the general considerations around managing a pregnancy &mdash; medication, weight, activity and nutrition. Throughout, it stays general: your own care belongs with the midwife, obstetrician or doctor who knows your history.</p>
+<p>This guide explains what pregnancy term means, how the different dating methods compare, what the standard timeline looks like, how a baby develops week by week, which changes are commonly reported at each stage, and the general considerations around managing a pregnancy &mdash; medication, weight, activity and nutrition. Throughout, it stays general: your own care belongs with the midwife, obstetrician or doctor who knows your history.</p>
 ''',
     sections=[
         ('term-and-due-date', 'Pregnancy term and the due date', '''
@@ -215,6 +215,60 @@ GUIDES_WOMENS['pregnancy'] = guide(
     ]) + '''
 <p>The calculator above shows these milestones against your own estimated dates. Treat them as a general map: your care team sets the actual schedule, and it varies with your history and with local guidelines.</p>
 '''),
+        ('fetal-development', 'How your baby develops, week by week', '''
+<p>Development is usually described against gestational age &mdash; counted from the first day of your last period, the same clock the calculator above uses. Because that starts about two weeks before conception, the embryo is roughly two weeks &ldquo;younger&rdquo; than the week number suggests.</p>
+<p>The first eight weeks are the <strong>embryonic period</strong>, when the major organs and body systems form. From around week nine onward is the <strong>fetal period</strong>, which is mostly growth and maturation of what is already there.</p>
+''' + ref_table(
+    'Typical development by gestational age',
+    [('Weeks', False), ('What is developing', False), ('Rough size', True)],
+    [
+        ('4&ndash;5', 'Implantation completes; the neural tube, which becomes the brain and spinal cord, begins to form', 'About 2 mm'),
+        ('6&ndash;8', 'Heartbeat usually detectable on ultrasound; limb buds appear; the brain, heart, lungs and digestive tract begin to take shape', 'About 1.5 cm'),
+        ('9&ndash;12', 'Fingers and toes separate; kidneys start producing urine; reflex movements begin, though far too small to feel', 'About 5&ndash;6 cm'),
+        ('13&ndash;16', 'Rapid growth; sucking and swallowing reflexes appear; bone begins to harden; sex may be visible on a scan', 'About 11&ndash;12 cm'),
+        ('17&ndash;20', 'Fine hair and a protective waxy coating develop; the anatomy scan falls in this window; movements often first felt', 'About 25 cm'),
+        ('21&ndash;24', 'Hearing develops and the baby responds to sound; the lungs begin producing surfactant; survival outside the womb becomes possible with intensive care', 'About 30 cm, 600 g'),
+        ('25&ndash;28', 'Fast brain growth; eyes open; recognisable cycles of sleep and wakefulness', 'About 37 cm, 1 kg'),
+        ('29&ndash;32', 'Steady weight gain and fat laid down under the skin; bones fully formed but still soft', 'About 42 cm, 1.7 kg'),
+        ('33&ndash;36', 'Lungs continue maturing; antibodies pass across the placenta; most babies settle head-down', 'About 47 cm, 2.6 kg'),
+        ('37&ndash;40', 'Considered term from 37 weeks; lungs reach maturity; weight gain continues to birth', 'About 51 cm, 3.4 kg'),
+    ]) + '''
+''' + callout('<p><strong>Sizes and timings are averages.</strong> Healthy babies vary considerably at every stage, and the ranges widen as pregnancy progresses. A baby measuring above or below these figures is not by itself a sign of anything &mdash; growth is assessed by your care team against your own scans and history, not against a general table.</p>')),
+        ('common-changes', 'Common changes through pregnancy', '''
+<p>Pregnancy affects almost every system in the body, and what people notice differs enormously. The lists below describe experiences that are <em>commonly reported</em> in each trimester. They are not a checklist, not a schedule, and not a way to assess how a pregnancy is going.</p>
+<h3>First trimester (weeks 1&ndash;13)</h3>
+<p>Hormone levels change quickly in these weeks, and this is when many people notice the most.</p>
+<ul>
+  <li><strong>Tiredness</strong>, often more than people expect.</li>
+  <li><strong>Nausea, with or without vomiting.</strong> Commonly called morning sickness, though it can happen at any hour.</li>
+  <li><strong>Breast tenderness</strong> and changes in size.</li>
+  <li><strong>Needing to urinate more often.</strong></li>
+  <li><strong>Changes in appetite, taste and smell</strong>, including aversions to food previously enjoyed.</li>
+  <li><strong>Mood changes.</strong></li>
+</ul>
+<h3>Second trimester (weeks 14&ndash;27)</h3>
+<p>Often described as the most comfortable stretch, though this is far from universal.</p>
+<ul>
+  <li><strong>Nausea and fatigue frequently ease</strong>, and energy often returns.</li>
+  <li><strong>First movements</strong>, usually felt somewhere between 18 and 24 weeks &mdash; typically later in a first pregnancy.</li>
+  <li><strong>Stretching sensations</strong> down the sides of the abdomen as ligaments accommodate the growing uterus.</li>
+  <li><strong>Back and pelvic discomfort</strong> as posture and weight distribution shift.</li>
+  <li><strong>Heartburn and nasal congestion.</strong></li>
+  <li><strong>Skin changes</strong>, including darkening of some areas.</li>
+</ul>
+<h3>Third trimester (week 28 onward)</h3>
+<p>Mostly driven by size and by the body preparing for birth.</p>
+<ul>
+  <li><strong>Breathlessness</strong>, as there is less room for the diaphragm to move.</li>
+  <li><strong>Difficulty sleeping</strong> and finding a comfortable position.</li>
+  <li><strong>Swelling</strong> in the feet and ankles.</li>
+  <li><strong>Braxton Hicks contractions</strong> &mdash; irregular tightenings that are not labour.</li>
+  <li><strong>Pelvic pressure</strong> and needing to urinate frequently again as the baby settles lower.</li>
+  <li><strong>Colostrum</strong>, an early milk, sometimes leaking from the breasts.</li>
+</ul>
+<h3>On not reading too much into any of this</h3>
+<p>Two points worth holding onto. Experiencing few of these is common and is not a sign that anything is wrong. And any of them can have explanations unrelated to pregnancy, which is exactly why a list on a website cannot tell you what yours means &mdash; that is a conversation with your midwife or doctor.</p>
+''' + callout('<p><strong>Changes in your baby&rsquo;s movements are the exception.</strong> Once you are feeling regular movement, any reduction or change in the pattern is a reason to contact your maternity service straight away, at any hour &mdash; not to wait and see, and not to try to prompt movement first. Services expect these calls and would far rather check. Bleeding, abdominal pain, severe headache, visual changes, sudden swelling, fever or fluid loss warrant the same immediate contact.</p>', warn=True)),
         ('pregnancy-management', 'General considerations during pregnancy', '''
 <p>The four areas below come up in almost every pregnancy. Everything here is general educational information. None of it is advice for your pregnancy, and all of it should be discussed with your own midwife, obstetrician or doctor.</p>
 <h3>Medication</h3>

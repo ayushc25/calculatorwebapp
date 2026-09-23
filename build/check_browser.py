@@ -184,11 +184,18 @@ def run():
                 if icon > 24:
                     failures.append('mobile: menu CTA icon rendered %dpx tall, expected ~18px' % icon)
 
-            # Method sections must render as designed blocks, not code
+            # Method sections must render as designed blocks, not code.
+            # They live inside a collapsed <details>, so open it first: the
+            # point of the check is that the blocks render, not that they
+            # are on screen before the visitor asks for them.
             page.goto(url('calculators/period/index.html'))
             page.wait_for_timeout(150)
             if page.eval_on_selector_all('pre', 'e => e.length'):
                 failures.append('%s: a <pre> code block is still on the period page' % label)
+            if not page.is_visible('summary:has(#how-it-is-calculated)'):
+                failures.append('%s: period page has no methodology section heading' % label)
+            page.click('summary:has(#how-it-is-calculated)')
+            page.wait_for_timeout(200)
             if page.eval_on_selector_all('.steps > li', 'e => e.length') != 3:
                 failures.append('%s: period method should show 3 steps' % label)
             if not page.is_visible('.worked'):

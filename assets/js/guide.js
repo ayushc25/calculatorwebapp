@@ -16,6 +16,14 @@
     return el && el.closest ? el.closest('details.guide-section, details.faq-item') : null;
   }
 
+  /* Honour the visitor's motion preference; the stylesheet does the same for
+     its own scroll-behavior. Read it each time rather than caching, since the
+     setting can change while the page is open. */
+  function prefersReducedMotion() {
+    return window.matchMedia &&
+           window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
   function reveal(hash, smooth) {
     if (!hash || hash.length < 2) return false;
 
@@ -32,7 +40,10 @@
 
     /* scroll-margin-top in the stylesheet keeps this clear of the header. */
     if (smooth) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.scrollIntoView({
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+        block: 'start'
+      });
     }
     return true;
   }
