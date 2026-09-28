@@ -525,6 +525,10 @@ def build_calculator(c):
     g = GUIDES[slug]
     faqs = list(c['faqs']) + g['faqs']
 
+    # Result sits beside the form rather than under it, which keeps the answer
+    # on the first screen and stops it adding to the page height. The article
+    # below flows up the left column alongside this aside, so a long result
+    # never leaves a band of empty space next to it.
     side = (
         '<aside class="calc-layout__side">'
         '<div class="side-card">'
@@ -537,9 +541,11 @@ def build_calculator(c):
         '<h2>Other calculators</h2>'
         '<ul class="link-list">%(links)s</ul>'
         '</div>'
+        '%(disclaimer)s'
         '</aside>'
     ) % {
         'cta': 'Calculate',
+        'disclaimer': g['disclaimer'],
         'links': ''.join(
             '<li><a href="%s">%s%s</a></li>' % (
                 rel(depth, 'calculators/%s/index.html' % s),

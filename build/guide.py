@@ -70,15 +70,22 @@ def guide(intro, sections, limits, seek_title, seek, disclaimer, faqs=()):
     closing = fold('limitations', 'Important limitations', limits)
     if seek:
         closing += fold('professional-input', seek_title, seek)
-    # The disclaimer stays open: on health content it should not be something
-    # a visitor has to go looking for.
-    closing += '<h2 id="disclaimer">Disclaimer</h2>' + callout(disclaimer, warn=True)
+
+    # The disclaimer is rendered by build.py in the sidebar, beside the
+    # calculator rather than at the foot of the article. On health content it
+    # should not be something a visitor has to scroll to the bottom to find.
+    disclaimer_card = (
+        '<div class="side-card side-card--warn">'
+        '<h2 id="disclaimer">%s Disclaimer</h2>%s'
+        '</div>'
+    ) % (WARN_SVG, disclaimer)
 
     # `intro` and `folds` are exposed separately so build.py can slot the
     # calculator's own methodology fold between them, keeping every fold on
     # the page inside a single card instead of nesting one card in another.
     return {'article': article, 'intro': intro, 'folds': folds,
-            'closing': closing, 'faqs': list(faqs)}
+            'closing': closing, 'disclaimer': disclaimer_card,
+            'faqs': list(faqs)}
 
 
 from guide_body import GUIDES_BODY        # noqa: E402

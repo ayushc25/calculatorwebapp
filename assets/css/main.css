@@ -330,24 +330,23 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
 .calc-layout > * { min-width: 0; }
 @media (min-width: 1000px) {
   .calc-layout {
-    grid-template-columns: minmax(0, 1.6fr) minmax(300px, .9fr);
+    /* The aside carries the result, so it gets a little more room than a
+       pure sidebar would: at .9fr the milestone table inside a result had to
+       scroll sideways. 1fr fits it, and the article keeps a 584px measure. */
+    grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr);
     gap: 30px 30px;
   }
+  /* Two rows, two columns. The aside carries the result and the links beside
+     the form, which keeps the answer on the first screen and keeps it out of
+     the page's height. The article takes column 1 from row 2, so it rises to
+     meet the bottom of the form and runs alongside the aside -- that is what
+     stops a long result leaving a band of empty space to its left.
+     The aside is deliberately not sticky: with a result shown it can run well
+     over a screen tall, and a sticky element taller than the viewport strands
+     its own bottom out of reach. */
   .calc-layout__form { grid-column: 1; grid-row: 1; }
-  .calc-layout__side { grid-column: 2; grid-row: 1; }
-  /* The article runs the full width under the calculator rather than staying
-     in the left column. Penned into column 1 it left the right-hand column
-     empty for the whole length of the page -- a tall band of dead space,
-     since the sidebar cannot stretch to fill it (a shown result makes the
-     aside itself very tall, so it cannot be made sticky either). Centred at a
-     comfortable reading measure it reads as an article and wastes nothing.
-     The cap is in px, not ch: `ch` resolves against whichever font happens to
-     be active, so with a web font loading async the column width changed
-     depending on when it settled. 780px holds the text to ~62 characters. */
-  .calc-layout__content {
-    grid-column: 1 / -1; grid-row: 2;
-    width: 100%; max-width: 780px; margin-inline: auto;
-  }
+  .calc-layout__side { grid-column: 2; grid-row: 1 / span 2; }
+  .calc-layout__content { grid-column: 1; grid-row: 2; }
   /* The column now sets the reading measure, so the panels inside fill it
      instead of capping again and leaving a strip of empty card. */
   .calc-layout__content .prose { max-width: none; }
@@ -669,6 +668,18 @@ details.faq-item .faq-body p:last-child { margin-bottom: 0; }
 .side-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-1); }
 .side-card + .side-card { margin-top: 18px; }
 .side-card h2 { font-size: 1rem; margin-bottom: 12px; }
+/* Health disclaimer in the sidebar: same card, warn palette, icon beside the
+   heading. Kept beside the calculator rather than at the foot of the article
+   so it is read with the result, not after it. */
+.side-card--warn {
+  background: var(--warn-bg);
+  border-color: color-mix(in srgb, var(--warn) 30%, transparent);
+}
+.side-card--warn h2 { display: flex; align-items: center; gap: 8px; }
+.side-card--warn h2 svg { width: 18px; height: 18px; flex: none; color: var(--warn); }
+.side-card--warn p { margin: 0; font-size: .88rem; line-height: 1.55; color: var(--ink-2); }
+.side-card--warn p + p { margin-top: .6em; }
+.side-card--warn strong { color: var(--ink); }
 .link-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
 .link-list a {
   display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: var(--r-sm);

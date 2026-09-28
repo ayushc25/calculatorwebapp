@@ -348,16 +348,8 @@ GUIDES_WOMENS['pregnancy'] = guide(
 <p><strong>This calculator is for general information and education.</strong> It estimates dates arithmetically and does not provide medical advice, diagnosis or treatment. It cannot confirm a pregnancy, assess how one is progressing, or replace clinical assessment, and the information on this page is general rather than advice about your pregnancy. Always follow the guidance of your midwife, obstetrician or doctor, and use the due date they give you in preference to this one. If you have any urgent concern, contact your maternity service or local emergency number without delay.</p>
 ''',
     faqs=[
-        ('How accurate is a due date calculator?',
-         'As an estimate of a range, quite useful; as a prediction of a day, not at all. Around 4% of babies arrive on the estimated date and roughly 80% within two weeks either side. An early ultrasound narrows the range considerably, while dating from the last menstrual period alone is the least precise of the common methods.'),
         ('Which is more accurate, my dates or the ultrasound?',
          'The ultrasound, if it was performed in the first trimester. Early embryonic growth is highly consistent between pregnancies, so a crown-rump length measurement dates a pregnancy to within about five days. Standard practice is to re-date the pregnancy if a first-trimester scan differs from the LMP estimate by more than roughly five to seven days.'),
-        ('Can I work out my due date without knowing my last period?',
-         'Yes, in two ways. If you know roughly when conception occurred, switch the calculator to conception dating. Otherwise an ultrasound is the reliable route &mdash; a first-trimester scan can date a pregnancy from measurements alone, without needing any remembered dates.'),
-        ('Why am I counted as pregnant before conception happened?',
-         'Because gestational age is counted from the first day of your last period rather than from conception, which places roughly two weeks of the count before you conceived. It is a convention rather than an error, and it is the same convention your clinician and every scan report will use &mdash; keeping to it avoids a great deal of confusion later.'),
-        ('What does full term actually mean?',
-         'Obstetric practice divides the end of pregnancy into bands: early term is 37 weeks 0 days to 38 weeks 6 days, full term is 39 weeks 0 days to 40 weeks 6 days, late term is 41 weeks, and post-term is 42 weeks and beyond. The distinction was introduced because outcomes at 37 weeks differ measurably from those at 39.'),
         ('How much weight should I gain during pregnancy?',
          'It depends on your pre-pregnancy BMI and your individual circumstances, and it is genuinely a question for your care team rather than a calculator. The widely referenced 2009 Institute of Medicine ranges run from about 5 to 9 kg for a pre-pregnancy BMI of 30 or over, up to about 12.5 to 18 kg for a BMI under 18.5, for a single baby. Ranges differ for twins.'),
         ('Is it safe to exercise while pregnant?',
@@ -544,16 +536,12 @@ GUIDES_WOMENS['bra-size'] = guide(
 <p><strong>This calculator is for general information and education.</strong> It converts tape measurements into a starting bra size and does not provide medical advice, diagnosis or treatment. Sizing varies between brands and styles, so treat the result as a shortlist to try rather than a definitive size. For any concern about breast health &mdash; including pain, lumps, skin or nipple changes, or discharge &mdash; contact a doctor or another qualified healthcare professional.</p>
 ''',
     faqs=[
-        ('Why is my calculated size so different from what I usually wear?',
-         'Most often because the old rule of adding four or five inches to the underbust measurement is still widely used, and it produces bands that are far too loose. A loose band shifts support to the straps and, because the cup is a difference from the band, simultaneously produces a cup that is too small. Moving from something like a 38B to a 34E is one of the most common corrections in professional fitting.'),
         ('Is a D cup the same size in every country?',
          'Up to a D cup the systems broadly agree. Above it they diverge: UK and Indian sizing uses doubled letters (DD, E, FF, GG), US sizing often runs DD then DDD before continuing with single letters, and EU sizing uses single letters throughout. A UK 34F is close to a US 34G and an EU 75G, which is why the calculator shows all four systems together.'),
         ('How tight should the band be?',
          'Firm. It should sit level all the way around, stay horizontal when you raise your arms, and fasten on the loosest hook when the bra is new, leaving room to tighten as the elastic relaxes. Two fingers should slide underneath without much slack. The band is meant to carry around 80% of the support, which it cannot do if it is loose.'),
         ('How often should bras be replaced?',
          'When the band no longer holds, which is usually the first thing to go. A practical test: if a bra only works on the tightest hook and still rides up at the back, its elastic is finished regardless of how it looks. Rotating between several bras and avoiding the tumble dryer both extend their working life considerably.'),
-        ('Does bra size change during pregnancy or breastfeeding?',
-         'Commonly and substantially, in both band and cup. The ribcage expands during pregnancy and breast volume changes through pregnancy and lactation, often more than once. Many people re-measure at several points and choose styles with more adjustment, and specialist maternity and nursing fitters are genuinely useful during this period.'),
         ('What if I am between two sizes?',
          'Try both, plus the sister sizes on either side. Because band and cup interact, being between sizes often means one combination works in a particular style while the other works elsewhere. Cup shape and construction matter as much as the number at this point, so judging by how each one actually sits beats reasoning it out on paper.'),
     ],

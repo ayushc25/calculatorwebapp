@@ -212,8 +212,6 @@ GUIDES_BODY['ideal-weight'] = guide(
          'No, and the four formulas disagreeing by several kilograms is the clearest evidence of it. Healthy weight is a range rather than a point, it depends on body composition and health history as much as on height, and it shifts across a lifetime. A range you can live inside is a more realistic and more useful target than any single figure.'),
         ('Why are the formulas different for men and women?',
          'They were derived from population data in which average body composition differed by sex &mdash; broadly, higher average lean mass in men and higher essential fat in women. The formulas encode that average difference as a different base weight. Like everything else in them, it is a population average and says nothing about an individual.'),
-        ('Can I adjust the result for my frame size?',
-         'Some older clinical practice adjusted by roughly 10% up or down for large or small frames, judged by wrist circumference or elbow breadth. The evidence behind that adjustment is weak and it is not part of the published formulas, so this calculator does not apply it. Treat frame size as a reason to read the result loosely rather than to compute a new one.'),
         ('What weight should I aim for if the formulas disagree?',
          'A practical approach is to use the healthy BMI range for your height as the outer boundary, then set a nearer target relative to where you are now &mdash; a 5 to 10% change is the amount most consistently associated with measurable health improvement. A dietitian or doctor can help set something specific to you.'),
         ('Do these formulas work for older adults?',
