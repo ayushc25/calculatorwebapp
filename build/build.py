@@ -295,6 +295,22 @@ def calc_card(slug, depth):
     }
 
 
+def quick_link(slug, depth):
+    c = CALC_BY_SLUG[slug]
+    return (
+        '<li><a href="%(href)s">'
+        '<span class="hero__quicklinks-icon">%(icon)s</span>'
+        '<span class="hero__quicklinks-name">%(title)s</span>'
+        '%(arrow)s'
+        '</a></li>'
+    ) % {
+        'href': rel(depth, 'calculators/%s/index.html' % slug),
+        'icon': ICONS[c['icon']],
+        'title': c['h1'],
+        'arrow': ICONS['arrow'].replace('<svg ', '<svg class="hero__quicklinks-go" ', 1),
+    }
+
+
 def faq_html(faqs):
     return '<div class="faq">' + ''.join(
         '<details class="faq-item"><summary>%s</summary>'
@@ -384,9 +400,9 @@ def build_home():
         '</ul>'
         '</div>'
         '<div class="hero__card">'
-        '<h2>Start with the essentials</h2>'
-        '<p class="small">The three people reach for most.</p>'
-        '<div class="card-grid" style="grid-template-columns:1fr">%s%s%s</div>'
+        '<h2>Jump straight in</h2>'
+        '<p class="small">The six calculators people open first.</p>'
+        '<ul class="hero__quicklinks">%s</ul>'
         '</div>'
         '</div></div></section>'
 
@@ -413,7 +429,8 @@ def build_home():
         '</div>'
         '</div></section>'
     ) % (ICONS['arrow'], ICONS['check'], ICONS['check'], ICONS['check'],
-         calc_card('bmi', depth), calc_card('bmr', depth), calc_card('calories-burned', depth),
+         ''.join(quick_link(s, depth) for s in (
+             'ideal-weight', 'period', 'pregnancy', 'bra-size', 'body-fat', 'calories-burned')),
          cards, feature_html)
 
     website = {
